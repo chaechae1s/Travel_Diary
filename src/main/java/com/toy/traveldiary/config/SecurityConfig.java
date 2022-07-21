@@ -10,27 +10,28 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import lombok.AllArgsConstructor;
 
+
+
 @Configuration
 @EnableWebSecurity
+@AllArgsConstructor
 public class SecurityConfig {
 	
 	@Bean
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
-			.cors()
-			.and()
-			.csrf().disable()
 			.authorizeRequests()
 								.antMatchers("/").permitAll()
+								.anyRequest().authenticated()
 								.and()
 			.formLogin()
-						.loginPage("")
+						.loginPage("/member/signin")
 						.defaultSuccessUrl("/")
 						.usernameParameter("email")
 						.permitAll()
 						.and()
 			.logout()
-						.logoutUrl("")
+						.logoutUrl("/member/signout")
 						.logoutSuccessUrl("/")
 						.invalidateHttpSession(true)
 						.deleteCookies("JSESSIONID")
