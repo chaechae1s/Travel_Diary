@@ -1,23 +1,7 @@
 package com.toy.traveldiary.member;
 
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
+import org.springframework.data.jpa.repository.JpaRepository;
 
-import org.springframework.stereotype.Repository;
-
-@Repository
-public class MemberRepository {
-	
-	@PersistenceContext
-	private EntityManager entityManager;
-	
-	public Long save(Member member) {
-		entityManager.persist(member);
-		return member.getId();
-	}
-	
-	public Member find(Long id) {
-		return entityManager.find(Member.class, id);
-	}
+public interface MemberRepository extends JpaRepository<Member, Long> {
 
 }

@@ -1,9 +1,14 @@
 package com.toy.traveldiary.member;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -20,6 +25,12 @@ public class Member {
 	private String password;
 	private String nickname;
 	private boolean enabled;
-
+	
+	@ManyToMany
+	@JoinTable(
+	  name = "member_role", 
+	  joinColumns = @JoinColumn(name = "member_id"), 
+	  inverseJoinColumns = @JoinColumn(name = "role_id"))
+	private List<Role> roles;
 	
 }
